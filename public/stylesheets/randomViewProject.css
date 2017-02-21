@@ -1,0 +1,35 @@
+label{
+	font-size: 18px;
+}
+.description{
+	border: 1px solid black;
+	width: 500px;
+	height: 150px;
+}
+
+.postDate{
+	margin-left: 20cm;
+	margin-top: -1cm;
+}
+
+.askedBy{
+	margin-left: 20cm;
+}
+
+h1{
+	text-align:$align;
+	padding:30px 0px 0px 0px;
+	font:25px;
+	margin:0px;
+	margin-left: 2cm;
+}
+
+button{
+	margin-top: 3cm;
+}
+
+#acceptedSubmission{
+	margin-top: 1cm;
+	border: 1px solid black;
+
+}

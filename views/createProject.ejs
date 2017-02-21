@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<% include ../Partials/head.ejs %>
+</head>
+
+<body>
+<header>
+	<% include ../Partials/header.ejs %>
+</header>
+<div class="container">
+<h1>Create a Project</h1>
+<hr id="underline">
+<form name = "submit" onsubmit="return(validate());" action="/project" method="post" enctype="multipart/form-data">
+<div>
+	<label>Project Name:</label> 
+
+    <input type="text" name="name" ng-minlength="5" ng-maxlength="20" required></br>
+	<label>Project Description:</label><textarea rows="3" cols="50"  name="description" ng-model="submit.description" ng-minlength="10" ng-maxlength="150" required></textarea>
+	</br>
+	
+	<label id="tagLabel">Tags:</label>
+        <div class="tagField">
+         <textarea rows="3" cols="30" name="tags" ng-model="submit.tags" ng-max="50" placeholder="Tags must be seperated by commas." required></textarea><br>
+        </div>
+	</br>
+    <label id="file">Additional Resources<br>Must be a zip file</label>
+    <input type="file" name="additionalResources" ng-filemodel ng-model="submit.additionalResources" accept=".zip"/><br>
+<br>
+ 
+
+    
+	<button  class="myButton" value="Submit" ng-click="save()" >Submit</button>
+</form>
+</div>
+</body>
+<script type="text/javascript" src="../public/javascript/validation.js"></script>
+</html>

@@ -1,0 +1,65 @@
+2017-02-06T02:33:27.743958173 0.135100s notice: Recursively removing directory /home/jacob/SeniorDesign/sp_f16s17_crowdsource/crowdsource/crowdsource/rethinkdb_data/tmp
+2017-02-06T02:33:27.763677068 0.154819s notice: Initializing directory /home/jacob/SeniorDesign/sp_f16s17_crowdsource/crowdsource/crowdsource/rethinkdb_data
+2017-02-06T02:33:27.763753072 0.154895s info: Creating a default database for your convenience. (This is because you ran 'rethinkdb' without 'create', 'serve', or '--join', and the directory '/home/jacob/SeniorDesign/sp_f16s17_crowdsource/crowdsource/crowdsource/rethinkdb_data' did not already exist or is empty.)
+2017-02-06T02:33:27.763775928 0.154918s notice: Running rethinkdb 2.3.5~0xenial (GCC 5.3.1)...
+2017-02-06T02:33:27.766084591 0.157227s notice: Running on Linux 4.4.0-57-generic x86_64
+2017-02-06T02:33:27.766116989 0.157259s notice: Loading data from directory /home/jacob/SeniorDesign/sp_f16s17_crowdsource/crowdsource/crowdsource/rethinkdb_data
+2017-02-06T02:33:27.990375592 0.381517s info: Automatically using cache size of 14749 MB
+2017-02-06T02:33:27.990664342 0.381806s notice: Listening for intracluster connections on port 29015
+2017-02-06T02:33:27.991212152 0.382354s notice: Listening for client driver connections on port 28015
+2017-02-06T02:33:27.991272272 0.382414s notice: Listening for administrative HTTP connections on port 8080
+2017-02-06T02:33:27.991272696 0.382414s notice: Listening on cluster addresses: 127.0.0.1, 127.0.1.1, ::1
+2017-02-06T02:33:27.991273436 0.382415s notice: Listening on driver addresses: 127.0.0.1, 127.0.1.1, ::1
+2017-02-06T02:33:27.991274727 0.382416s notice: Listening on http addresses: 127.0.0.1, 127.0.1.1, ::1
+2017-02-06T02:33:27.991276183 0.382418s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2017-02-06T02:33:27.991277864 0.382419s notice: Server ready, "harambe_qq9" 8ace6743-e401-4386-b2c8-ae966669cfba
+2017-02-06T02:33:48.257066861 20.648209s notice: Server got SIGINT from pid 0, uid 0; shutting down...
+2017-02-06T02:33:48.257298895 20.648441s notice: Shutting down client connections...
+2017-02-06T02:33:48.257391147 20.648533s notice: All client connections closed.
+2017-02-06T02:33:48.257395111 20.648537s notice: Shutting down storage engine... (This may take a while if you had a lot of unflushed data in the writeback cache.)
+2017-02-06T02:33:48.257945022 20.649087s notice: Storage engine shut down.
+2017-02-06T02:37:12.576678082 0.105030s notice: Running rethinkdb 2.3.5~0xenial (GCC 5.3.1)...
+2017-02-06T02:37:12.579148224 0.107502s notice: Running on Linux 4.4.0-57-generic x86_64
+2017-02-06T02:37:12.579200554 0.107553s notice: Loading data from directory /home/jacob/SeniorDesign/sp_f16s17_crowdsource/crowdsource/crowdsource/rethinkdb_data
+2017-02-06T02:37:12.647872959 0.176226s info: Automatically using cache size of 14759 MB
+2017-02-06T02:37:12.648205592 0.176558s notice: Listening for intracluster connections on port 29015
+2017-02-06T02:37:12.648690902 0.177043s notice: Listening for client driver connections on port 28015
+2017-02-06T02:37:12.648753601 0.177105s notice: Listening for administrative HTTP connections on port 8080
+2017-02-06T02:37:12.648754042 0.177106s notice: Listening on cluster addresses: 127.0.0.1, 127.0.1.1, ::1
+2017-02-06T02:37:12.648754753 0.177107s notice: Listening on driver addresses: 127.0.0.1, 127.0.1.1, ::1
+2017-02-06T02:37:12.648756355 0.177108s notice: Listening on http addresses: 127.0.0.1, 127.0.1.1, ::1
+2017-02-06T02:37:12.648757853 0.177110s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2017-02-06T02:37:12.648759438 0.177111s notice: Server ready, "harambe_qq9" 8ace6743-e401-4386-b2c8-ae966669cfba
+2017-02-06T02:40:45.376726463 212.905079s notice: Server got SIGINT from pid 0, uid 0; shutting down...
+2017-02-06T02:40:45.376798810 212.905151s notice: Shutting down client connections...
+2017-02-06T02:40:45.376822386 212.905174s notice: All client connections closed.
+2017-02-06T02:40:45.376823242 212.905175s notice: Shutting down storage engine... (This may take a while if you had a lot of unflushed data in the writeback cache.)
+2017-02-06T02:40:45.376956053 212.905308s notice: Storage engine shut down.
+2017-02-06T02:40:57.422384761 0.065323s notice: Running rethinkdb 2.3.5~0xenial (GCC 5.3.1)...
+2017-02-06T02:40:57.424227193 0.067166s notice: Running on Linux 4.4.0-57-generic x86_64
+2017-02-06T02:40:57.424253649 0.067192s notice: Loading data from directory /home/jacob/SeniorDesign/sp_f16s17_crowdsource/crowdsource/crowdsource/rethinkdb_data
+2017-02-06T02:40:57.472731271 0.115669s info: Automatically using cache size of 14755 MB
+2017-02-06T02:40:57.473037217 0.115975s notice: Listening for intracluster connections on port 29015
+2017-02-06T02:40:57.473610456 0.116548s notice: Listening for client driver connections on port 28015
+2017-02-06T02:40:57.473671522 0.116609s notice: Listening for administrative HTTP connections on port 8080
+2017-02-06T02:40:57.473671945 0.116610s notice: Listening on cluster addresses: 127.0.0.1, 127.0.1.1, ::1
+2017-02-06T02:40:57.473672678 0.116611s notice: Listening on driver addresses: 127.0.0.1, 127.0.1.1, ::1
+2017-02-06T02:40:57.473673851 0.116612s notice: Listening on http addresses: 127.0.0.1, 127.0.1.1, ::1
+2017-02-06T02:40:57.473675322 0.116613s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2017-02-06T02:40:57.473676687 0.116615s notice: Server ready, "harambe_qq9" 8ace6743-e401-4386-b2c8-ae966669cfba
+2017-02-06T02:41:08.653945093 11.296883s notice: Server got SIGINT from pid 0, uid 0; shutting down...
+2017-02-06T02:41:08.654020046 11.296958s notice: Shutting down client connections...
+2017-02-06T02:41:08.654054327 11.296992s notice: All client connections closed.
+2017-02-06T02:41:08.654055624 11.296994s notice: Shutting down storage engine... (This may take a while if you had a lot of unflushed data in the writeback cache.)
+2017-02-06T02:41:08.654214512 11.297153s notice: Storage engine shut down.
+2017-02-06T02:41:16.887866974 0.175936s notice: Running rethinkdb 2.3.5~0xenial (GCC 5.3.1)...
+2017-02-06T02:41:16.889520639 0.177590s notice: Running on Linux 4.4.0-57-generic x86_64
+2017-02-06T02:41:16.889551870 0.177621s notice: Loading data from directory /home/jacob/SeniorDesign/sp_f16s17_crowdsource/crowdsource/crowdsource/rethinkdb_data
+2017-02-06T02:41:16.953218092 0.241287s info: Automatically using cache size of 14767 MB
+2017-02-06T02:41:16.969288875 0.257358s notice: Listening for intracluster connections on port 29015
+2017-02-06T02:41:16.969745795 0.257815s notice: Listening for client driver connections on port 28015
+2017-02-06T02:41:16.969961146 0.258030s notice: Listening for administrative HTTP connections on port 8080
+2017-02-06T02:41:16.988385882 0.276455s notice: Listening on cluster addresses: 127.0.0.1, 127.0.1.1, 192.168.0.106, ::1, fe80::12d9:cd5e:a50a:3d8b%2
+2017-02-06T02:41:17.013380275 0.301449s notice: Listening on driver addresses: 127.0.0.1, 127.0.1.1, 192.168.0.106, ::1, fe80::12d9:cd5e:a50a:3d8b%2
+2017-02-06T02:41:17.029292370 0.317361s notice: Listening on http addresses: 127.0.0.1, 127.0.1.1, 192.168.0.106, ::1, fe80::12d9:cd5e:a50a:3d8b%2
+2017-02-06T02:41:17.029295493 0.317364s notice: Server ready, "harambe_qq9" 8ace6743-e401-4386-b2c8-ae966669cfba

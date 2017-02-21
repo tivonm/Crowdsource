@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Crowdsource | <%= title %></title>
+    <% include ../Partials/head.ejs %>
+  </head>
+  <body>
+  <h1>All Posted Projects</h1>
+  	<div>
+  		<table class="table table-striped">
+  		<tr>
+  		<th>Name</th>
+  		<th>Date Created</th>
+  		<th>Type</th> 
+  		<th>Poster</th>
+  		<th>Tags</th>
+  		</tr>
+  		<tr>
+  		
+  			<% projects.forEach(function(project)) { %>
+  				<td><a href="/<%= obj.projectId %>"><%= project.name %></a> </td>
+  				<td><%= project.dateCreated %> </td>
+  				<td><%= project.userId %> </td>
+  				<td><%= project.tags %> </td>	
+  			<% }); %>
+  		</tr>
+  		</table>
+  	</div> 
+  </body>
+  </html>

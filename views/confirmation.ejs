@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<% include /Partials/head.ejs %>
+</head>
+<body>
+<% include /Partials/header.ejs %>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-resource.min.js"></script>
+
+<h3>You have successfully <%= action %> your <%= object %></h3>
+<a href="/<%= object %>/<%= index %>" class="button">View your <%= object %></a>
+<a href="/<%= object %>" class="button">View all <%= object %>s</a>
+
+</div>
+<footer>
+<% include /Partials/footer.ejs %>
+</footer>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<% include ../Partials/head.ejs %>
+</head>
+
+<body>
+<header>
+<% include ../Partials/header.ejs %>
+</header>
+<center><h1>My Profile</h1></center>
+  <div class = "container">
+    <h3>Projects</h3>
+    <table class="table table-bordered">
+      <tr>
+      <th>Project Name</th>
+      <th>Project Description</th>
+      <th>Date Created</th>
+      <th>Tags</th>
+      </tr>
+
+      <tr>
+        <% projects.forEach(function(project)) { %>
+          <td><%= obj.name  %> </td>
+          <td><%= obj.description %></td>
+          <td><%= obj.dateCreated %></td>
+          <td><%= obj.tags %></td>
+        <% }); %>
+      </tr>
+      </table>
+  </div>
+
+  <div class="container">
+    <h3>Watched Projects</h3>
+   <table class="table table-bordered">
+      <tr>
+      <th>Project Name</th>
+      <th>Project Description</th>
+      <th>Poster</th>
+      <th>Date Created</th>
+      <th>Tags</th>
+      </tr>
+
+      <tr>
+        <% projects.forEach(function(project)) { %>
+          <td><%= obj.project.name  %> </td>
+          <td><%= obj.project.description %></td>
+          <td><%= obj.username %></a></td>
+    <ul>
+      <% users.forEach(function(user)) { %>
+        <li><%= obj.submissions.fileName %> </li>
+      <% }); %>
+    </ul>
+  </div>
+
+</html>

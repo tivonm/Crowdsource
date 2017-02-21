@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../Partials/head.ejs %>
+  </head>
+  <body>
+  <header>
+      <% include ../Partials/header.ejs %>
+  </header>
+  <h1> <%= obj.name %> </h1>
+  <div>
+  <label>Description: </label><%= obj.description %><br>
+  <label>Date Posted </label><%= obj.dateCreated %><br>
+  <label>Posted By: </label><a href="/<%= obj.userId %>"><%= obj.username %></a><br>
+  <label>Tags: </label><%= obj.tags %><br>
+  <label>Status: </label><%= obj.status %><br>
+  </div>
+  <div>
+  <label>Submissions </label><br>
+  <table class="table table-striped">
+  <tr>
+  <th>Username</th>
+  <th>Date Created</th>
+  <th>File</th>
+  <th>Rating</th>
+  </tr>
+
+  <tr>
+  <% submissions.forEach(function(submission)){ %>
+  	<td><%= obj.submission.userId %></td>
+  	<td><%= obj.submission.dateCreated %></td>
+  	<td><%= obj.submission.fileName %></td>
+  	<td><%= obj.submission.rating %></td>
+  <% }); %>
+  </tr>
+
+  <a href="Submission.ejs" class="btn btn-primary btn-lg active" role="button">Turn in a submission</a>
+  <a href = "viewProjects.ejs" class="btn btn-default btn-lg active" role="button">Back</a>
+
+  </body>
+  </html>

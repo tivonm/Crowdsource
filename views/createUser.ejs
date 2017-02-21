@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Crowdsource | <%= title %></title>
+    <% include ../Partials/head.ejs %>
+  </head>
+  <body>
+  <header>
+  <% include ../Partials/header.ejs %>
+  </header>
+  
+  <center><h1>Create User</h1></center>
+  <form method = "POST" enctype="multipart/form-data" name="submit" class="form-horizontal">
+  	<div id="createUserForm" class="form-group">
+  		<input type="text" class="form-control" id="username" name="username" id="username" placeholder="Username"><br>
+  		<input type="password" class="form-control" id="password" name="password" placeholder="Password"><br>
+  		<input type="password" class="form-control" id="password" name="password" placeholder="Retype Password"><br>
+  		<input type="text" class="form-control" id="email" name="email" id="email" placeholder="Email"><br>
+  		<label>Upload Profile Picture</label><input type="file" name="profilePic" id="profilePic"><br>
+  		<a href="index.ejs" class="btn btn-primary btn-lg active" role="button">Submit</a><br>
+  	</div>
+  </form>
+  </body>
+  </html>
