@@ -1,17 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-<% include ../Partials/head.ejs %>
+<% include ./Partials/head %>
+
 </head>
 
 <body>
+
+<style>
+ header{
+    background-color: lightblue;
+    height: 80px;
+    }
+</style>
 <header>
-<% include ../Partials/header.ejs %>
+<% include ./Partials/header %>
 </header>
 <center><h1>My Profile</h1></center>
   <div class = "container">
     <h3>Projects</h3>
-    <table class="table table-bordered">
+    <% if(locals.obj != null ) { %>
+      <table class="table table-bordered">
+
       <tr>
       <th>Project Name</th>
       <th>Project Description</th>
@@ -19,38 +29,80 @@
       <th>Tags</th>
       </tr>
 
-      <tr>
-        <% projects.forEach(function(project)) { %>
-          <td><%= obj.name  %> </td>
-          <td><%= obj.description %></td>
-          <td><%= obj.dateCreated %></td>
-          <td><%= obj.tags %></td>
-        <% }); %>
-      </tr>
+      
+          <% for(var i = 0; i < obj.projects.length; i++) { %>
+          <tr>
+          <td><%= obj.projects[i].name  %> </td>
+          <td><%= obj.projects[i].description %></td>
+          <td><%= obj.projects[i].createdDate %></td>
+          <td><%= obj.projects[i].tags %></td>  
+          </tr>       
+          <% } %>    
+      
       </table>
+    <% } else { %>
+      <label>No requested projects. Click <a href="/project/new"> here to create a new project.</a> </label>
+    <% } %>
   </div>
 
   <div class="container">
     <h3>Watched Projects</h3>
+    <% if(locals.obj.watchedProjects != null ) { %>
    <table class="table table-bordered">
       <tr>
       <th>Project Name</th>
       <th>Project Description</th>
-      <th>Poster</th>
       <th>Date Created</th>
       <th>Tags</th>
       </tr>
 
+      
+          <% for(var i = 0; i < obj.watchedProjects.length; i++) { %>
+            <tr>
+            <td><%= obj.watchedProjects[i].name %></td>
+            <td><%= obj.watchedProjects[i].description %></td>
+            <td><%= obj.watchedProjects[i].createdDate %></td>
+            <td><%= obj.watchedProjects[i].tags %></td>
+          <% } %>
+         
+
+      </tr>
+      </table>
+      <% } else { %>
+       <label>No Watched Projects. Click <a href="/project/view" here to start watching a project.</a> </label>
+    <% } %>
+    </div>
+
+     <div class="container">
+    <h3>Submissions</h3>
+      <% if(locals.obj.submittedProjects != null ) { %>
+      <table class="table table-bordered">
       <tr>
-        <% projects.forEach(function(project)) { %>
-          <td><%= obj.project.name  %> </td>
-          <td><%= obj.project.description %></td>
-          <td><%= obj.username %></a></td>
-    <ul>
-      <% users.forEach(function(user)) { %>
-        <li><%= obj.submissions.fileName %> </li>
-      <% }); %>
-    </ul>
+      <th>Project Name</th>
+      <th>Project Description</th>
+      <th>File Name</th>
+      <th>Date Created</th>
+      <th>Rating</th>
+      </tr>
+    <% for(var i = 0; i < obj.submittedProjects.length; i++) { %>
+      <tr>
+      <td><%= obj.submittedProjects[i].name %></td>
+      <td><%= obj.submittedProjects[i].description %></td>
+      <td><%= obj.submittedProjects[i].fileName %></td>
+      <td><%= obj.submittedProjects[i].createdDate %></td>
+      <td><%= obj.submittedProjects[i].rating %></td>
+      </tr>
+      <% } %>
+      </table>
+    <% } else { %>
+    <label>No submissions to view </label>
+    <% } %>
   </div>
 
+  
+  
+  
+
+
+</body>
 </html>

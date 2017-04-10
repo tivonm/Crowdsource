@@ -16,10 +16,7 @@ function validate() {
             alert("Project Description must be between ten and 150 Characters.");
             return false;
     } 
-     if ((document.submitProjectForm.tags.value.length) > 50){
-            alert("Tags must have a maximum of 50 Characters.");
-            return false;
-    } 
+
 
     return (true);
 }

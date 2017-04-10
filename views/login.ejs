@@ -1,20 +1,38 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <% include ../Partials/head.ejs %>
+  	<% include ./Partials/head %>
+
   </head>
   <body>
+
+
+    
+    <style>
+
+    header{
+    	background-color: lightblue;
+		height: 80px;
+
+    }
+    #loginForm{
+    	width: 200px;
+    	margin-left: 17cm;
+    }
+    </style>
+    
   <header>
-  <% include ../Partials/header.ejs %>
+
+  <% include ./Partials/header %>
   </header>
-  	<center><h1>Login</h1></center>
-  	<form class="form-horizontal" name="submit">
+  	<h1 class="text-center">Login</h1>
+  	<form class="form-horizontal" name="submit" action="/log/in" method = "POST">
       <div id="loginForm" class="form-group">
-        <input type="text" class="form-control" id="username" name="username" id="username" placeholder="Username"/><br>
-        <input type="password" class="form-control" name="password" id="password" class="form-control" id="password" name="password" placeholder="Password"/><br>
-        <a href="#" class="btn btn-primary btn-lg active" role="button">Login</a><br><br>
-        <a href="#" class="btn btn-default btn-sm active" role="button">Forgot Password</a><br><br>
-        <a href="#" class="btn btn-default btn-sm active" role="button">Create Account</a><br>    
+        <input  type="text" class="form-control" id="username" name="username" id="username" placeholder="Username"/><br>
+        <input  type="password" class="form-control" name="password" id="password" class="form-control" id="password" name="password" placeholder="Password"/><br>
+        <input class="btn btn-primary" type="submit" value="Submit"> </button><br>
+        <a class="btn btn-default" href="/log/forgot" role="button">Forgot Password</a><br>
+        <a class="btn btn-default" href="/log/new" role="button">Create An Account</a>
       </div>
       <div class="fb-login-button" data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="false"></div>
       </form>

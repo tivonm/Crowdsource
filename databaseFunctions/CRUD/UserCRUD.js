@@ -5,7 +5,7 @@ var Errors = thinky.Errors;
 
 
 getUsers = function () { // returns all users
-    var combinedProject = Project.getJoin({Type: true, User: true}).run().then(function(fullProject) {
+    var users = module.exports.User.run().then(function(fullProject) {
         return fullProject;
     });
     return combinedProject;
@@ -16,7 +16,7 @@ getUser = function(id){ // returns
     });
 }
 saveUser = function(userToSave){ // recreates the object and saves it
-    var user = new User({
+    var user = new module.exports.User({
         id: userToSave.id,
         username: userToSave.username,
         email: userToSave.email,
@@ -35,8 +35,8 @@ saveUser = function(userToSave){ // recreates the object and saves it
          preferredTags: [type.string()]*/
     });
     if(user.isSaved()){
-        User.get(user.id).run().then(function(unneeded) {
-            User.merge(user).save().then(function(result) {
+        module.exports.User.get(user.id).run().then(function(unneeded) {
+            module.exports.User.merge(user).save().then(function(result) {
                 console.log(result);
             });
         }).catch(Errors.DocumentNotFound, function(err) {
@@ -53,11 +53,17 @@ saveUser = function(userToSave){ // recreates the object and saves it
     return user.id;
 }
 deleteUser = function(id){
-    User.get(id).then(function(user) {
-        User.delete().then(function(result) {
+    module.exports.User.get(id).then(function(user) {
+        module.exports.User.delete().then(function(result) {
             console.log(result);// user === result // user was deleted from the database
             result.isSaved(); // false
         });
+    });
+}
+
+countUser = function(){
+    module.exports.User.count().execute().then(function(total) {
+        console.log(total+" users in the database\n");
     });
 }
 //var testText = "Made it to testText in projectCRUD.js";

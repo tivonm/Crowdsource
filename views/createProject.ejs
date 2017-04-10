@@ -1,38 +1,66 @@
 <!DOCTYPE html>
 <html>
 <head>
-<% include ../Partials/head.ejs %>
+<% include ./Partials/head.ejs %>
+<style>
+	header{
+	background-color: lightblue;
+	height: 80px;
+	}
+	
+	h1{
+  	text-align:$align;
+  	padding:30px 0px 0px 0px;
+  	font:25px;
+  	margin:0px;
+  }
+
+
+</style>
 </head>
 
 <body>
 <header>
-	<% include ../Partials/header.ejs %>
+	<% include ./Partials/header.ejs %>
 </header>
 <div class="container">
 <h1>Create a Project</h1>
 <hr id="underline">
-<form name = "submit" onsubmit="return(validate());" action="/project" method="post" enctype="multipart/form-data">
-<div>
-	<label>Project Name:</label> 
+<form name = "submit" class = "form-horizontal" onsubmit="return(validate());" action="/project/new" method="post">
+<div class="form-group">
+	<label class="col-sm-2 control-label">Project Name:</label> 
+	<div class="col-sm-10">
+    <input type="text" name="name" ng-minlength="5" ng-model="name" ng-maxlength="20" required></br>
+    </div>
+    </div>
+    <div class="form-group">
 
-    <input type="text" name="name" ng-minlength="5" ng-maxlength="20" required></br>
-	<label>Project Description:</label><textarea rows="3" cols="50"  name="description" ng-model="submit.description" ng-minlength="10" ng-maxlength="150" required></textarea>
+	<label class="col-sm-2 control-label">Project Description:</label>
+	<div class="col-sm-10">
+	<textarea class="form-control" rows="3" cols="50"  name="description" ng-model="description" ng-minlength="10" ng-maxlength="150" required></textarea>
 	</br>
+	</div>
+	</div>
 	
-	<label id="tagLabel">Tags:</label>
-        <div class="tagField">
-         <textarea rows="3" cols="30" name="tags" ng-model="submit.tags" ng-max="50" placeholder="Tags must be seperated by commas." required></textarea><br>
+	<div class="form-group">
+	<label class="col-sm-2 control-label" id="tagLabel">Tags:</label>
+        <div class="col-sm-10">
+         <textarea class="form-control
+         " rows="3" cols="30" name="tags" ng-model="tags" ng-max="50" placeholder="Tags must be seperated by commas." required></textarea><br>
+        </div>
         </div>
 	</br>
-    <label id="file">Additional Resources<br>Must be a zip file</label>
-    <input type="file" name="additionalResources" ng-filemodel ng-model="submit.additionalResources" accept=".zip"/><br>
+	<div class="form-group">
+    <label class="col-sm-2 control-label" id="file">Additional Resources<br>Must be a zip file</label>
+    <div class="col-sm-10">
+    <input type="file" name="additionalResources" ng-filemodel ng-model="additionalResources" accept=".zip"/><br>
 <br>
  
 
     
-	<button  class="myButton" value="Submit" ng-click="save()" >Submit</button>
+<input class="btn btn-primary" type="submit" value = "Submit">
 </form>
 </div>
 </body>
 <script type="text/javascript" src="../public/javascript/validation.js"></script>
-</html>
+</html

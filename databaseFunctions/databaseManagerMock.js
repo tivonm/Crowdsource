@@ -16,6 +16,10 @@ function checkLogin(user) {
     return {status: false, msg: "invalid username or password." };
 }
 
+function createUser(user){
+	return {status: true};
+}
+
 function getUsers() {
     var d = new Date("2015-03-25");
     //var c = new Date("2014-02-26");
@@ -220,5 +224,6 @@ module.exports = {
     getUser: getUser,
     getAllProjects: getAllProjects,
     getProject: getProject,
-    getProjectsByUser: getProjectsByUser
+    getProjectsByUser: getProjectsByUser,
+    createUser: createUser
 };

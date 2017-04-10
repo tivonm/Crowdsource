@@ -1,24 +1,57 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Crowdsource | <%= title %></title>
-    <% include ../Partials/head.ejs %>
+    <% include ./Partials/head %>
   </head>
   <body>
+
+  <style>
+    header{
+    background-color: lightblue;
+    height: 80px;
+  }
+  </style>
   <header>
-  <% include ../Partials/header.ejs %>
+  <% include ./Partials/header %>
   </header>
   
   <center><h1>Create User</h1></center>
-  <form method = "POST" enctype="multipart/form-data" name="submit" class="form-horizontal">
+  <form method = "POST" name="submit" class="form-horizontal" action = "/log/new">
   	<div id="createUserForm" class="form-group">
-  		<input type="text" class="form-control" id="username" name="username" id="username" placeholder="Username"><br>
+    <div class="form-group">
+      <label for="username" class="col-sm-2 control-label">Username</label>
+    <div class="col-xs-4">
+  		<input type="text" class="form-control" id="username" name="username" id="username" placeholder="Username" ><br>
+    </div>
+    </div>
+    <div class="form-group">
+      <label for="password" class="col-sm-2 control-label">Password</label>
+    <div class="col-xs-4">
   		<input type="password" class="form-control" id="password" name="password" placeholder="Password"><br>
-  		<input type="password" class="form-control" id="password" name="password" placeholder="Retype Password"><br>
-  		<input type="text" class="form-control" id="email" name="email" id="email" placeholder="Email"><br>
-  		<label>Upload Profile Picture</label><input type="file" name="profilePic" id="profilePic"><br>
-  		<a href="index.ejs" class="btn btn-primary btn-lg active" role="button">Submit</a><br>
-  	</div>
+    </div>
+    </div>
+    <div class="form-group">
+    <label for="password2" class="col-sm-2 control-label">Retype Password</label>
+    <div class="col-xs-4">
+  		<input type="password" class="form-control" id="password2" name="password2" placeholder="Retype Password" ><br>
+    </div>
+    </div>
+
+    <div class="form-group">
+    <label for="email" class="col-sm-2 control-label">Email</label>
+    <div class="col-xs-4">
+  		<input type="text" class="form-control" id="email" name="email" placeholder="Email"><br>
+    </div>
+    </div>
+    <div class="form-group">
+    <label for="fileName" class="col-sm-2 control-label">Upload a Profile Picture</label>
+    <input type="file" name="profilePic" id="profilePic" accept = "image/*"><br>
+    </div>
+    <div class="form-group">
+  		<input style="margin-left: 6cm;" class="btn btn-primary" type="submit" value = "Submit">
+    </div>
   </form>
   </body>
+
   </html>
+

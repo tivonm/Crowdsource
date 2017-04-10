@@ -24,7 +24,7 @@ getProject = function(id){ // returns the project w/ submissions, a user model t
     return {project: combinedProject, user: user/*, type: type*/};
 }
 saveProject = function(projToSave){ // recreates the object and saves it
-    var proj = new Project({
+    var proj = new module.exports.Project({
         id: projToSave.id,
         name: projToSave.name,
         userId: projToSave.userId,

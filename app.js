@@ -26,12 +26,15 @@ app.use(session({
 //controller routes
 var index = require('./routes/index');
 var project = require('./routes/projectController');
-var user = require('./userController');
+var user = require('./routes/userController');
+var login = require('./routes/login');
+app.use('/log', login);
 
 // a middleware function that checks if the user is logged in every time a new page is called
 app.use(function (req, res, next) {
-    if (!req.session.user.id) {
-        res.redirect('/user/login');
+    
+    if (req.session.user ==null) {
+        res.redirect('/log/in');
     } else {
         next();
     }

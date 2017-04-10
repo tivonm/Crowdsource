@@ -1,30 +1,74 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Crowdsource | <%= title %></title>
-    <% include ../Partials/head.ejs %>
+
+    <% include ./Partials/head %>
   </head>
   <body>
+
+  <style>
+    header{
+      background-color: lightblue;
+    height: 80px;
+
+    form {
+      width:500px;
+      margin:50px auto;
+    } 
+    .search {
+      padding:8px 15px;
+      background:rgba(50, 50, 50, 0.2);
+      border:0px solid #dbdbdb;
+    }
+    .button {
+      position:relative;
+      padding:6px 15px;
+      left:-8px;
+      border:2px solid #207cca;
+      background-color:#207cca;
+      color:#fafafa;
+    }
+    .button:hover  {
+      background-color:#fafafa;
+      color:#207cca;
+    }
+    }
+  </style>
+
+  <header>
+  <% include ./Partials/header %>
+  </header>
   <h1>All Posted Projects</h1>
+    <form>
+      <input type="text" placeholder="Search..." required>
+      <input type="button" value="Search">
+    </form>
+
   	<div>
-  		<table class="table table-striped">
-  		<tr>
-  		<th>Name</th>
-  		<th>Date Created</th>
-  		<th>Type</th> 
-  		<th>Poster</th>
-  		<th>Tags</th>
-  		</tr>
-  		<tr>
+    <% if(locals.obj != null) { %>
+      <table class="table table-striped">
+      <tr>
+      <th>Name</th>
+      <th>Username</th>
+      <th>Description</th>
+      <th>Created Date</th> 
+      <th>Tags</th>
+      </tr>
+      <% for(var i = 0; i < obj.length; i++) { %>
+        <tr>
+        <td><a href="/project/view/<%= obj[i].id %>"> <%= obj[i].name %></a></td>
+        <td><a href="/user/view/<%= obj[i].userId %>"><%= obj[i].username %></td>
+        <td><%= obj[i].description %></td>
+        <td><%= obj[i].createdDate %></td>
+        <td><%= obj[i].tags %></td>
+      <% } %>     
+      </tr>
+      </table>
+    <% } else { %>
+      <label>No projects have been submitted</label>
+      <% } %>
   		
-  			<% projects.forEach(function(project)) { %>
-  				<td><a href="/<%= obj.projectId %>"><%= project.name %></a> </td>
-  				<td><%= project.dateCreated %> </td>
-  				<td><%= project.userId %> </td>
-  				<td><%= project.tags %> </td>	
-  			<% }); %>
-  		</tr>
-  		</table>
   	</div> 
+    
   </body>
   </html>

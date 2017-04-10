@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ./Partials/head %>
+ 
+  </head>
+  <body>
+  <style>
+    header{
+      background-color: lightblue;
+      height: 80px;
+	}
+   </style>
+
+  <header>
+      <% include ./Partials/header %>
+  </header>
+ <h1 class="text-center"> Viewing Project <%= obj.name %> </h1>
+  <dl class="dl-horizontal">
+
+  <div class="row">
+    <div class="col-md-3 col-md-offset-4">
+      <dt>Project Description</dt>
+      <dd><%= obj.description %></dd>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-3 col-md-offset-4">
+      <dt>Date Posted</dt>
+      <dd><%= obj.createdDate %></dd>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-3 col-md-offset-4">
+      <dt>Posted By: </dt>
+      <dd><a href="/user/view/obj.userId"><%= obj.username %></a></dd>
+    </div>
+  </div>
+
+
+  <form method = "POST" enctype="multipart/form-data" name="submit" action = "/project/view/id">
+  <div>
+  <label>Submissions </label><br>
+  
+  <% if(locals.obj.submittedProjects != null){ %>
+    <table class="table table-striped">
+  <tr>
+  <th>Username</th>
+  <th>File</th>
+  <th>Date Submitted</th>
+  <th>Rate Submission</th>
+  </tr>
+  
+  <% for(var i = 0; i < obj.submittedProject.length; i++) {%>
+     <tr>
+    <td><%= obj.submittedProject[i].username %></td>
+    <td><%= obj.submittedProject[i].fileUrl %></td>
+    <td><%= obj.submittedProject[i].submissionDate %></td>
+    <td><input type="text" name="rating" id="rating" style="width: 1px;"></input></td>
+    </tr>
+  <% } %>
+ 
+  </table>
+  <% } else { %>
+  <label>No Submissions For This Project</label>
+  <% } %>
+
+
+
+  <div class="radio">
+  <label>
+  	<input type="checkbox" name="watchProject" id = "watchProject" value="1">Watch This Project</input>
+  </label>
+  </div>
+
+ <div class="fileSubmit">
+ <label>Turn in a submission for this project: </label>
+ <input type="file" name="workFileName" id="workFileName" accept = ".zip">
+ </div>
+ <input class="btn btn-primary" type="submit" value = "Submit"><br>
+ <input class="btn btn-default" href="/project/view" role="button">Back to projects>
+ </form>
+  </body>
+  </html>

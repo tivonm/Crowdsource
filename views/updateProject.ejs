@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-<% include /Partials/head.ejs %>
+<% include ./Partials/head %>
 </head>
 <body class= "container">
 <header>
-        <% include /Partials/header.ejs %>
+        <% include ./Partials/header %>
 </header>
 <div>
 <h1>Update Project <%= index %></h1>
@@ -43,7 +43,7 @@
     
 
     
-    <button class="myButton" value="Submit" ng-click="save()">Submit</button>
+   <a href="/project/view/id" class="btn btn-primary btn-lg active" role="button">Submit</a><br>
 </div>
 
 </form>

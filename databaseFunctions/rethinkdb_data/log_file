@@ -1,0 +1,8 @@
+2017-03-01T20:37:20.649953397 0.148129s notice: Recursively removing directory /home/jacob/SeniorDesign/sp_f16s17_crowdsource/crowdsource/databaseFunctions/rethinkdb_data/tmp
+2017-03-01T20:37:20.669796772 0.167972s notice: Initializing directory /home/jacob/SeniorDesign/sp_f16s17_crowdsource/crowdsource/databaseFunctions/rethinkdb_data
+2017-03-01T20:37:20.669888609 0.168064s info: Creating a default database for your convenience. (This is because you ran 'rethinkdb' without 'create', 'serve', or '--join', and the directory '/home/jacob/SeniorDesign/sp_f16s17_crowdsource/crowdsource/databaseFunctions/rethinkdb_data' did not already exist or is empty.)
+2017-03-01T20:37:20.669901654 0.168077s notice: Running rethinkdb 2.3.5~0xenial (GCC 5.3.1)...
+2017-03-01T20:37:20.671835681 0.170012s notice: Running on Linux 4.4.0-57-generic x86_64
+2017-03-01T20:37:20.671856294 0.170032s notice: Loading data from directory /home/jacob/SeniorDesign/sp_f16s17_crowdsource/crowdsource/databaseFunctions/rethinkdb_data
+2017-03-01T20:37:20.879481560 0.377657s info: Automatically using cache size of 14427 MB
+2017-03-01T20:37:20.879811969 0.377987s error: TCP socket creation failed for port 29015: Address already in use.

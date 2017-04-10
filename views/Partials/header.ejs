@@ -1,17 +1,20 @@
-<div>
 <nav class="navbar navbar-deafult" role="navigation">
-	<div class="container-fluid">
-	<h1><%= title =%>
-	<ul class="nav navbar-nav">
-		<li><a href="/">Home</a></li>
-		<li><a href="index.ejs">Create Project<a></li>
-		<li><a href="projects.ejs">View Projects</a></li>
-		<li><a href="account.ejs">My Account</a></li>
-	</ul>
-	</div>
+  <div class="container-fluid">
+  
+  <ul class="nav navbar-nav">
+    <li><a href="/">Home</a></li>
+    <li><a href="/project/new">Create Project</a></li>
+    <li><a href="/project/view">View Projects</a></li>
+    <li><a href="#">My Account</a></li>
+    <li><a href="/log/out">Log out</a></li>
+  </ul>
+  </div>
 </nav>
+<br>
 <div class="msg">
-	<span><p><%= msg %></p></span>
+	 <% if(locals.msg != null ) { %>
+	 	<label style="margin-left: 1cm; color: red">Error: <%= msg %></label>
+	 <% } %>
 </div>
 
 
