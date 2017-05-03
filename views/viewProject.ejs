@@ -2,7 +2,8 @@
 <html>
   <head>
     <% include ./Partials/head %>
- 
+  
+  
   </head>
   <body>
   <style>
@@ -11,7 +12,23 @@
       height: 80px;
 	}
    </style>
-
+<script>
+    $("button").click(function(){
+      $.ajax({
+        type: "POST",
+        url: '/api/watch',
+        data: {id: obj.id, userId: obj.userId},
+        dataType: "json",
+        success:  $('#watchProject').on('click', function() {
+            if($("#watchProject").is(":checked")){
+              $(this).find('#watchProjectText').text('Unwatch this project');
+            } else{
+              $(this).find('#watchProjectText').text('Watch this project');
+        }
+      });
+      });
+    });
+  </script>
   <header>
       <% include ./Partials/header %>
   </header>
@@ -19,32 +36,52 @@
   <dl class="dl-horizontal">
 
   <div class="row">
-    <div class="col-md-3 col-md-offset-4">
-      <dt>Project Description</dt>
+    <div class="col-md-8 col-md-offset-4">
+      <dt>Project Description:</dt>
       <dd><%= obj.description %></dd>
     </div>
   </div>
 
   <div class="row">
     <div class="col-md-3 col-md-offset-4">
-      <dt>Date Posted</dt>
+      <dt>Date Posted:</dt>
       <dd><%= obj.createdDate %></dd>
     </div>
   </div>
 
   <div class="row">
-    <div class="col-md-3 col-md-offset-4">
+    <div class="col-md-8 col-md-offset-4">
       <dt>Posted By: </dt>
-      <dd><a href="/user/view/obj.userId"><%= obj.username %></a></dd>
+      <dd><a href="/user/view/<%= obj.id %>"><%= obj.username %></a></dd>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-8 col-md-offset-4">
+      <dt>Tags: </dt>
+      <dd><%= obj.tags %></dd>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-3 col-md-offset-4">
+      <dt>Additional Resources: </dt>
+      <% if (locals.obj != null) { %>
+      <dd><a href="/public/files/projectFiles/<%= obj.resourceFile %>" download><%= obj.resourceFile %></a></dd>
+      <% } else { %>
+        <div class="col-md-8 col-md-offset-4">
+          <label>No additional resources</label>
+        </div>
+      <% } %>
     </div>
   </div>
 
 
-  <form method = "POST" enctype="multipart/form-data" name="submit" action = "/project/view/id">
-  <div>
+  <div class="row">
+  <div class="col-md-3 col-md-offset-4">
   <label>Submissions </label><br>
   
-  <% if(locals.obj.submittedProjects != null){ %>
+  <% if(locals.obj.submittedProject != null){ %>
     <table class="table table-striped">
   <tr>
   <th>Username</th>
@@ -53,34 +90,48 @@
   <th>Rate Submission</th>
   </tr>
   
-  <% for(var i = 0; i < obj.submittedProject.length; i++) {%>
+  <% for(var i = 0; i < obj.submittedProjects.length; i++) { %>
      <tr>
-    <td><%= obj.submittedProject[i].username %></td>
-    <td><%= obj.submittedProject[i].fileUrl %></td>
-    <td><%= obj.submittedProject[i].submissionDate %></td>
-    <td><input type="text" name="rating" id="rating" style="width: 1px;"></input></td>
+    <td><%= obj.submittedProjects[i].username %></td>
+    <td><a href="/public/files/submissionFiles/<%= obj.submittedProjects[i].fileUrl %>" download><%= obj.submittedProjects[i].fileUrl %></a></td>
+    <td><%= obj.submittedProjects[i].submissionDate %></td>
     </tr>
   <% } %>
  
   </table>
   <% } else { %>
+  <div class="row">
+  <div class="col-md-8 col-md-offset-4">
   <label>No Submissions For This Project</label>
+  </div>
+  </div>
   <% } %>
-
-
-
-  <div class="radio">
-  <label>
-  	<input type="checkbox" name="watchProject" id = "watchProject" value="1">Watch This Project</input>
-  </label>
+  </div>
   </div>
 
+
+  <form method = "POST" enctype="multipart/form-data" name="submit" action = "/project/submit/<%= obj.id %>">
+  
+  <div class="row">
+    <div class="col-md-3 col-md-offset-4">
+  <div class="checkbox">
+  <label>
+  	<input type="checkbox" name="watchProject" id = "watchProject" ><span id="watchProjectText">Watch this project</span></input>
+  </label>
+  </div>
+  </div>
+  </div>
+ 
+ <div class="row">
+  <div class="col-md-3 col-md-offset-4">
  <div class="fileSubmit">
  <label>Turn in a submission for this project: </label>
  <input type="file" name="workFileName" id="workFileName" accept = ".zip">
  </div>
- <input class="btn btn-primary" type="submit" value = "Submit"><br>
- <input class="btn btn-default" href="/project/view" role="button">Back to projects>
+ <input class="btn btn-primary" type="submit" value = "Submit" ><br>
+ <button type="button" class="btn btn-default" href="/project/view" role="button">Back to projects</button>
+ </div>
+ </div>
  </form>
   </body>
   </html>

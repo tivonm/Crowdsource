@@ -10,11 +10,12 @@ var CRUD = require(__dirname+'/models/all.js');
 var Errors = thinky.Errors;
 var r = thinky.r;
 var map = Array.prototype.map;
+var mkdirp = require('mkdirp');
 
 
 router.get('/view', function(req, res) {
     getProjects().then(function(projects){
-        getUsersWithIDs(projects).then(function(projects1){
+        getUsersWithIds(projects).then(function(projects1){
             res.render('viewProjects', { title: 'Projects' , msg: "" , obj: projects1});
         },function(err){
             res.render('viewProjects', { title: 'Projects' , msg: err , obj: ""});
@@ -25,7 +26,7 @@ router.get('/view', function(req, res) {
     });
 });
 
-function getUsersWithIDs(projects){
+function getUsersWithIds(projects){
     return new Promise(function(resolve, reject) {
         //const promisedResults = ids.map(getProject);
         if(projects == null){
@@ -41,14 +42,30 @@ function getUsersWithIDs(projects){
         }
         const a = map.call(ids, getUserWithProject);
         var toRet = projects;
+        var counter = 0;
         Promise.all(a).then(users => {
             for (const currUser of users){
-                toRet[i].username = currUser.username;
+                toRet[counter].username = currUser.username;
+                counter++;
             }
             resolve(toRet);
     }).catch(reason => {
             return reject(reason);
     });
+    });
+}
+
+function getUser(id) {
+    return new Promise(function(resolve, reject) {
+        CRUD.User.get(id).run().then(function(result) {
+            //console.log(JSON.stringify(result) + "\nAbove user was retrieved.\n");
+            resolve(result);
+        }).catch(Errors.DocumentNotFound , function(err) {
+            //console.log("Document not found.");
+            return reject(err);
+        }).error(function(err) {
+            return reject(err);
+        });
     });
 }
 
@@ -58,7 +75,7 @@ function getProjects() { // returns 100 most recently created projects
             // console.log(JSON.stringify(result) + "\nAbove projects were retrieved.\n");
             resolve(result);
         }).catch(Errors.DocumentNotFound , function(err) {
-            console.log("Document not found.");
+            //console.log("Document not found.");
             return reject(err);
         }).error(function(err) {
             return reject(err);
@@ -71,31 +88,82 @@ router.get('/view/:id', function(req, res) {
     // the error res render needs to make sense, an obj isnt named
     // it was from before so i'm leaving to help with your thought process
 	var id = req.params.id;
-    var message = ""
+	//console.log("Id: " + id);
+    var message = "";
 
-    Promise.all([
-        getProject(id),
-        getSubmissions(id),
-        getUserWithProject(id)
-    ]).then(([project1, submissions1, user1]) => {
-        user1.project = project1;
-        user1.project.submissions = submissions1;
-        res.render('viewProject', { title: 'Created Project' , msg: '', obj: user1});
+    getProject(id).then(function(project){
+        //console.log("Current project retrieved:\n" +JSON.stringify(project) + "\n");
+        Promise.all([
+            getSubmissions(project.id),
+            getUser(project.userId)
+        ]).then(([submissions1, user1]) => {
+            user1.project = project;
+            user1.project.submittedProjects = submissions1;
+            //console.log(JSON.stringify(user1) + "\nAbove object was retrieved.\n");
+            getUsersWithSubmissions(user1.project.submittedProjects).then(function(submissions){
+                user1.project.submittedProjects = submissions;
+                console.log(JSON.stringify(user1, undefined, 2) + "\nAbove object was retrieved.\n");
+                res.render('viewProject', { title: 'Created Project' , msg: '', obj: user1});
+            },function(err){
+                res.render('viewProjects', { title: 'Projects' , msg: err , obj: ""});
+            });
+
     }).catch(err => {
-        // need res for errors
+            // need res for errors
+        });
+    },function(err){
+        //console.log(err);
+        res.render('error', {
+            message: 'Sorry, project not found.',
+            error: err
+        });
     });
 });
 
-
-function getUserWithProject(id){
+function getUsersWithSubmissions(submissions){
     return new Promise(function(resolve, reject) {
-        CRUD.User.filter(function(user1) {
-            return user1("yourProjectIds").contains(id)
+        //const promisedResults = ids.map(getProject);
+        if(Array.isArray(submissions) && submissions.length <= 0){
+            //console.log("<=0.");
+            resolve(submissions);
+        } else if (!Array.isArray(submissions)){
+            //console.log("!isArr.");
+            resolve(submissions);
+        } else {
+            var ids = 0
+            for(var i = 0; i < submissions.length; i++){
+                if(ids == 0){
+                    ids[0] = submissions[i].userId;
+                }else{
+                    ids.push(submissions[i].userId);
+                }
+            }
+            //console.log("There are "+ids.length+" submissions.");
+            const a = map.call(ids, getUser);
+            var toRet = submissions;
+            var counter = 0;
+            Promise.all(a).then(users => {
+                for (const currUser of users){
+                    toRet[counter].username = currUser.username;
+                    counter++;
+                }
+                resolve(toRet);
+            }).catch(reason => {
+                return reject(reason);
+            });
+        }
+    });
+}
+
+function getUserWithProject(projectId){
+    return new Promise(function(resolve, reject) {
+        CRUD.User.filter(function(user) {
+            return user("yourProjectIds").contains(projectId);
         }).run().then(function(result) {
             //console.log(JSON.stringify(result) + "\nAbove user was retrieved.\n");
             resolve(result);
         }).catch(Errors.DocumentNotFound , function(err) {
-            console.log("Document not found.");
+            //console.log("Document not found.");
             return reject(err);
         }).error(function(err) {
             return reject(err);
@@ -103,14 +171,13 @@ function getUserWithProject(id){
     });
 }
 
-
 function getProject(id) { // project with id
     return new Promise(function(resolve, reject) {
         CRUD.Project.get(id).run().then(function(result) {
-            //console.log(JSON.stringify(result) + "\nAbove user was retrieved.\n");
+            //console.log(JSON.stringify(result) + "\nAbove project was retrieved.\n");
             resolve(result);
         }).catch(Errors.DocumentNotFound , function(err) {
-            console.log("Document not found.");
+            //console.log("Document not found.");
             return reject(err);
         }).error(function(err) {
             return reject(err);
@@ -122,7 +189,7 @@ function getProject(id) { // project with id
 function getSubmissions(id){
     return new Promise(function(resolve, reject) {
         CRUD.Submission.filter({projectId:id}).run().then(function(result) {
-            // output here
+            //console.log(JSON.stringify(result) + "\nAbove submissions were retrieved.\n");
             resolve(result);
         }).error(function(err) {
             return reject(err);
@@ -140,51 +207,46 @@ router.get('/new', function(req, res) {
 router.post('/new', function(req, res) {
     // need to fix these res renders, unsure where they go
 	var formValues = req.body;
-    console.log(JSON.stringify(formValues));
-    console.log(JSON.stringify(req));
+    //console.log("Form values:\n"+JSON.stringify(formValues));
+    //console.log(JSON.stringify(req));
 	var err = "";
 	if(formValues.name.length < 1 || formValues.name.length > 20){
-		err += "Invalid Name. \n";
+		err += "Invalid name, must be between 1 and 20 characters. \n";
 	}
 	if(formValues.description.length < 10 || formValues.description.length > 150){
-		err += "Invalid description. \n";
+		err += "Invalid description length, must be between 10 and 150 characters. \n";
 	}
 	if(formValues.tags.length < 0 || formValues.description.length > 50){
-		err += "Invalid tags. \n";
+		err += "Invalid tags, must have one or more, and be less than 50 characters. \n";
 	}
-    if(!(formValues.additionalResources == null || formValues.additionalResources.length == 0)){
-    	if(formValues.additionalResources.originalFilename.length > 0 && !formValues.additionalResources.originalFilename.endswith('.zip')){
-    		err += "Invalid Additional Resource. Must be a zip file."; 
-    	}
-    }
 	if( err.length > 0){
 		res.render('createProject', { title: 'Create Project', msg: err, obj: formValues });
 	}
-	var name = formValues.name.replace(/^([a-zA-Z0-9 _-]+)$/gi,'');
+	var name = formValues.name;
 	var spaceTags = formValues.tags.split(',');
-	spaceTags.forEach(function(value) {
-  		value = value.trim(); 
-	});
+	for(i=0;i<spaceTags.length;i++)
+    {
+        spaceTags[i] = spaceTags[i].replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+    }
 	var tags = spaceTags;
 	var description = validator.escape(formValues.description);
 	var fileName;
 	var userId = req.session.user.id;
 	var userName = req.session.user.name;
 
-    if(formValues.additionalResources != null || formValues.additionalResources.length == 0){
-    	if(formValues.additionalResources.originalFilename > 0){
-    		fs.readFile(formValues.additionalResources.path, function (err, data){
-    		    var dirname = path.resolve(".")+'/public/files/submissionFiles/';
-    		    var newPath = dirname + name + "." + userName;
-    		    fs.writeFile(newPath, data, function (err) {
-    			    if(err){
-    			    	debug('fileUploadFailed');
-    			    }else {
-    			  		fileName = name + "." + userName;
-    				}
-    			});
-    		});
-    	}
+    if(req.files.additionalResources != null){
+        var  additionalResources = req.files.additionalResources;
+        var lowPath = path.join(__dirname, '..');
+        var pathName = "/public/files/projectFiles/" + userId;
+        if(!fs.existsSync(lowPath + pathName)){
+            mkdirp(lowPath + pathName, function (err) {
+            });
+        }
+        var fileName = pathName + "/" + name + "." + additionalResources.name + ".zip";
+        additionalResources.mv(lowPath + fileName, function(err) {
+            if (err)
+                return res.status(500).send(err);
+        });
     }
 
     formValues.tags = tags;
@@ -195,22 +257,19 @@ router.post('/new', function(req, res) {
     formValues.resourceFile = fileName;
     formValues.createdDate = Date();
 
-
-
     var project = createProjectObject(formValues);
-    createProject(project).then(function(projectId){
-        var testItem = {obj: projectId};
-        console.log(JSON.stringify(testItem.obj));
-
-        getProject(projectId).then(function(project){
-
-            getUserWithProject(projectId).then(function(currUser){
+    createProject(project).then(function(createdProject){
+        addYourProjectId(req.session.user.id, createdProject.id);
+        addTagsOfProject(project);
+        //console.log("New project id: " + JSON.stringify(createdProject.id) + ".\n" );
+        getProject(createdProject.id).then(function(project){
+            getUser(project.userId).then(function(currUser){
                 project.username = currUser.username;
                 res.render('viewProject', { title:formValues.name , obj: project });
             },function(err){
                 //console.log(err);
                 res.render('error', {
-                    message: 'Sorry, project not found.',
+                    message: 'Sorry, project\'s owner not found.',
                     error: err
                 });
             });
@@ -224,11 +283,93 @@ router.post('/new', function(req, res) {
     },function(err){
         //console.log(err);
         res.render('error', {
-            message: 'Sorry, project not found.',
+            message: 'Sorry, project couldn\'t be created.',
             error: err
         });
     });
 });
+
+function addTagsOfProject(project){
+    //console.log("Adding tag(s):\n"+JSON.stringify(project.tags)+"\n");
+    if(project.tags.constructor === Array){
+        const arr = project.tags;
+        const promisedResults = arr.map(createTag);
+        Promise.all(promisedResults).then(retObjs => {
+            //for (const retObj of retObjs){console.log(retObj);}
+        }).catch(reason => {
+            //console.log("Had an issue adding tags to project with id: " +project.id+ ".\n");
+        });
+    } else {
+        createTag(project.tags);
+    }
+}
+
+function createTagObject(name){
+    var tag = new CRUD.Tag({
+        name: name
+    });
+    return tag;
+}
+
+
+function createTag(name){
+    var tag = createTagObject(name);
+    return new Promise(function(resolve, reject) {
+        tag.save().then(function (doc) {
+            //console.log("Tag: " + tag.name + " was saved.\n");
+            resolve(tag.name);
+        }).catch(Errors.DuplicatePrimaryKey, function (err) {
+            //console.log("Duplicate primary key found.");
+            return reject(err);
+        }).error(function (error) {
+            // not specific error, just a wide catch
+            return reject(err);
+        });
+    });
+}
+
+function addYourProjectId(userId, projectId){
+    return new Promise(function(resolve, reject) {
+        CRUD.User.get(userId).run().then(function(result) {
+            console.log("User retrieved:\n" + JSON.stringify(result) + ".\n");
+            if(!result.yourProjectIds){ // if not empty
+                if(!Array.isArray(result.yourProjectIds)){ // if not an array
+                    result.yourProjectIds = [projectId];
+                } else { // if an array
+                    result.yourProjectIds.push(projectId);
+                }
+            } else { // if empty
+                result.yourProjectIds = [projectId];
+            }
+            updateUser(result);
+            //console.log("Added project id of: " +projectId+ " to user with id: "+userId+".\n");
+            resolve(result);
+        }).error(function(err) {
+            return reject(err);
+        });
+    });
+}
+
+function addSubmittedProjectId(userId, projectId){
+    return new Promise(function(resolve, reject) {
+        CRUD.User.get(userId).run().then(function(result) {
+            if(!result.submittedProjectIds){ // if not empty
+                if(result.submittedProjectIds.constructor != Array){ // if not an array
+                    result.submittedProjectIds = [result.submittedProjectIds, projectId];
+                } else { // if an array
+                    result.submittedProjectIds.push(projectId);
+                }
+            } else { // if empty
+                result.submittedProjectIds[0] = projectId;
+            }
+            updateUser(result);
+            //console.log("Added project id of: " +projectId+ " to user with id: "+userId+".\n");
+            resolve(result);
+        }).error(function(err) {
+            return reject(err);
+        });
+    });
+}
 
 function createProjectObject(formValues){
     var project = new CRUD.Project({
@@ -247,9 +388,9 @@ function createProjectObject(formValues){
 
 function createProject(project){
     return new Promise(function(resolve, reject) {
-        project.save().then(function (doc) {
-            //console.log("Project with ID: " + project.id + " was saved.\n");
-            resolve(project.id);
+        project.save().then(function (proj) {
+            //console.log("Project with id '" + proj.id + "' was saved.\n");
+            resolve(proj);
         }).catch(Errors.DuplicatePrimaryKey, function (err) {
             //console.log("Duplicate primary key found.");
             return reject(err);
@@ -259,7 +400,6 @@ function createProject(project){
         });
     });
 }
-
 
 //UpdateProjects
 /* Get /project/new/:id. */
@@ -289,6 +429,7 @@ router.put('/new/:id', function(req, res) {
 function updateProject(body){
     return new Promise(function(resolve, reject) {
         CRUD.Project.get(body.id).update(body).then(function(result) {
+            //console.log("Project with id " + result + " was updated.\n");
             resolve(result);
         }).catch(Errors.DocumentNotFound , function(err) {
             // output here
@@ -299,38 +440,72 @@ function updateProject(body){
     });
 }
 
-/* Get /project/submit/:id */
-router.get('/submit/:id', function(req, res) { //
-	res.render('submission', { title: 'Update Project' , index: req.params.id});
-});
+function updateUser(body){
+    return new Promise(function(resolve, reject) {
+        CRUD.User.get(body.id).update(body).then(function(result) {
+            //console.log("User with id " + result + " was updated.\n");
+            resolve(result);
+        }).catch(Errors.DocumentNotFound , function(err) {
+            // output here
+            return reject(err);
+        }).error(function(err) {
+            return reject(err);
+        });
+    });
+}
 
 /* Post /submit. */
 router.post('/submit/:id', function(req, res) { // add submission to project
-    var projectID = req.params.id;
-    var formValues = req.body.formValues;
+    var projectId = req.params.id;
+    var date = Date();
+    var fileName;
+    var userId = req.session.user.id;
+
+    var additionalResources = req.files.workFileName;
+    var lowPath = path.join(__dirname, '..');
+    var pathName = "/public/files/submissionFiles/" + projectId;
+    if(!fs.existsSync(lowPath + pathName)){
+        mkdirp(lowPath + pathName, function (err) {
+        });
+    }
+    fileName = pathName + "/" + userId + ".zip";
+    additionalResources.mv(lowPath + fileName, function(err) {
+        if (err)
+            return res.status(500).send(err);
+    });
+
+    var formValues = {
+        projectId: projectId,
+        userId: userId,
+        submissionDate: date,
+        accepted: false,
+        fileUrl: fileName
+    };
     var submission = createSubmissionObject(formValues);
 
     Promise.all([
-        getProjectAndAddSubmissionID(id, submissionID),
+        addSubmittedProjectId(userId, projectId),
         createSubmission(submission),
     ]).then(([result1, result2]) => {
-        // unsure what you want returned
-        // need res for this
+        getProjectAndAddSubmissionId(projectId, result2.id);
+        res.redirect('/project/view/' + projectId);
     }).catch(err => {
-        // need res for errors
+        res.render('error', {
+            message: 'Sorry, could not create submission and add submission id.',
+            error: err
+        });
     });
-
 });
 
-function getProjectAndAddSubmissionID(id, submissionID){
-    getProject(id).then(function(project){
-        project.submissionIds.push(submissionID);
+function getProjectAndAddSubmissionId(projectId, submissionId){
+    getProject(projectId).then(function(project){
+        project.submissionIds.push(submissionId);
         updateProject(project).then(function(updatedProject){
-            // output
+            //console.log("Updated project with id " + id + " after adding submission id "+submissionId+".\n");
         },function(err){
             //console.log(err);
             res.render('error', {
-                message: 'Sorry, project not found.',
+                message: 'Sorry, project could not be updated.',
                 error: err
             });
         });
@@ -356,6 +531,7 @@ function createSubmissionObject(formValues){
     });
     return submission;
 }
+
 
 function createSubmission(submission){
     return new Promise(function(resolve, reject) {

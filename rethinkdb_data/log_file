@@ -63,3 +63,55 @@
 2017-02-06T02:41:17.013380275 0.301449s notice: Listening on driver addresses: 127.0.0.1, 127.0.1.1, 192.168.0.106, ::1, fe80::12d9:cd5e:a50a:3d8b%2
 2017-02-06T02:41:17.029292370 0.317361s notice: Listening on http addresses: 127.0.0.1, 127.0.1.1, 192.168.0.106, ::1, fe80::12d9:cd5e:a50a:3d8b%2
 2017-02-06T02:41:17.029295493 0.317364s notice: Server ready, "harambe_qq9" 8ace6743-e401-4386-b2c8-ae966669cfba
+2017-04-21T09:52:50.248961455 0.158691s notice: Recursively removing directory /home/jacob/SeniorDesign/sp_f16s17_crowdsource/crowdsource/rethinkdb_data/tmp
+2017-04-21T09:52:50.314808143 0.224538s notice: Running rethinkdb 2.3.5~0xenial (GCC 5.3.1)...
+2017-04-21T09:52:50.316618283 0.226348s notice: Running on Linux 4.4.0-72-generic x86_64
+2017-04-21T09:52:50.316655794 0.226385s notice: Loading data from directory /home/jacob/SeniorDesign/sp_f16s17_crowdsource/crowdsource/rethinkdb_data
+2017-04-21T09:52:50.435472536 0.345202s info: Automatically using cache size of 15135 MB
+2017-04-21T09:52:50.436435067 0.346164s notice: Listening for intracluster connections on port 29015
+2017-04-21T09:52:50.457319855 0.367049s notice: Listening for client driver connections on port 28015
+2017-04-21T09:52:50.457371585 0.367101s notice: Listening for administrative HTTP connections on port 8080
+2017-04-21T09:52:50.457383523 0.367113s notice: Listening on cluster addresses: 127.0.0.1, 127.0.1.1, ::1
+2017-04-21T09:52:50.457384482 0.367114s notice: Listening on driver addresses: 127.0.0.1, 127.0.1.1, ::1
+2017-04-21T09:52:50.457385882 0.367115s notice: Listening on http addresses: 127.0.0.1, 127.0.1.1, ::1
+2017-04-21T09:52:50.457386535 0.367116s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2017-04-21T09:52:50.457387842 0.367117s notice: Server ready, "harambe_qq9" 8ace6743-e401-4386-b2c8-ae966669cfba
+2017-04-21T09:53:34.343498500 44.253229s notice: Server got SIGINT from pid 0, uid 0; shutting down...
+2017-04-21T09:53:34.343703407 44.253433s notice: Shutting down client connections...
+2017-04-21T09:53:34.343809206 44.253539s notice: All client connections closed.
+2017-04-21T09:53:34.343815496 44.253545s notice: Shutting down storage engine... (This may take a while if you had a lot of unflushed data in the writeback cache.)
+2017-04-21T09:53:34.360829774 44.270560s notice: Storage engine shut down.
+2017-04-30T18:51:46.479031305 0.155136s notice: Running rethinkdb 2.3.5~0xenial (GCC 5.3.1)...
+2017-04-30T18:51:46.491760645 0.167867s notice: Running on Linux 4.4.0-72-generic x86_64
+2017-04-30T18:51:46.491788209 0.167893s notice: Loading data from directory /home/jacob/SeniorDesign/sp_f16s17_crowdsource/crowdsource/rethinkdb_data
+2017-04-30T18:51:46.660782492 0.336887s info: Automatically using cache size of 14717 MB
+2017-04-30T18:51:46.661901065 0.338006s notice: Listening for intracluster connections on port 29015
+2017-04-30T18:51:46.671794829 0.347900s notice: Listening for client driver connections on port 28015
+2017-04-30T18:51:46.671879444 0.347984s notice: Listening for administrative HTTP connections on port 8080
+2017-04-30T18:51:46.671879924 0.347985s notice: Listening on cluster addresses: 127.0.0.1, 127.0.1.1, ::1
+2017-04-30T18:51:46.671880592 0.347985s notice: Listening on driver addresses: 127.0.0.1, 127.0.1.1, ::1
+2017-04-30T18:51:46.671881951 0.347987s notice: Listening on http addresses: 127.0.0.1, 127.0.1.1, ::1
+2017-04-30T18:51:46.671883293 0.347988s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2017-04-30T18:51:46.671884730 0.347989s notice: Server ready, "harambe_qq9" 8ace6743-e401-4386-b2c8-ae966669cfba
+2017-04-30T18:55:18.609838531 212.285944s info: Table b57bf64e-0d08-4d7e-81cd-81f54a68073b: Starting a new Raft election for term 1.
+2017-04-30T18:55:18.610110518 212.286215s info: Table b57bf64e-0d08-4d7e-81cd-81f54a68073b: Added replica on this server.
+2017-04-30T18:55:18.677902995 212.354008s info: Table c21e35db-f427-4f35-9a72-08dfa7b3447d: Starting a new Raft election for term 1.
+2017-04-30T18:55:18.720852095 212.396957s info: Table c21e35db-f427-4f35-9a72-08dfa7b3447d: Added replica on this server.
+2017-04-30T18:55:18.720873534 212.396978s info: Table 4b93ea16-1fd4-4f07-a74e-b173fbabfcb1: Starting a new Raft election for term 1.
+2017-04-30T18:55:18.720978631 212.397084s info: Table 4b93ea16-1fd4-4f07-a74e-b173fbabfcb1: Added replica on this server.
+2017-04-30T18:55:18.720980141 212.397085s info: Table efd11f6a-5a65-4b23-964a-68d52fa77da1: Starting a new Raft election for term 1.
+2017-04-30T18:55:18.721175829 212.397281s info: Table 4745ea1f-c111-4c6b-8bbf-571d2918e57f: Starting a new Raft election for term 1.
+2017-04-30T18:55:18.721224352 212.397329s info: Table efd11f6a-5a65-4b23-964a-68d52fa77da1: Added replica on this server.
+2017-04-30T18:55:18.721406144 212.397511s info: Table 4745ea1f-c111-4c6b-8bbf-571d2918e57f: Added replica on this server.
+2017-04-30T18:55:18.721415553 212.397520s info: Table 8399a2c2-f560-4e74-a903-5f0eef536f23: Starting a new Raft election for term 1.
+2017-04-30T18:55:18.721456570 212.397561s info: Table 23197203-51ab-4f7a-a2ad-00f29e96eee6: Starting a new Raft election for term 1.
+2017-04-30T18:55:18.721694776 212.397800s info: Table 8399a2c2-f560-4e74-a903-5f0eef536f23: Added replica on this server.
+2017-04-30T18:55:18.721757729 212.397863s info: Table 23197203-51ab-4f7a-a2ad-00f29e96eee6: Added replica on this server.
+2017-04-30T18:55:18.869954595 212.546059s info: Table b57bf64e-0d08-4d7e-81cd-81f54a68073b: This server is Raft leader for term 1. Latest log index is 0.
+2017-04-30T18:55:18.869971513 212.546076s info: Table c21e35db-f427-4f35-9a72-08dfa7b3447d: This server is Raft leader for term 1. Latest log index is 0.
+2017-04-30T18:55:18.911797924 212.587903s info: Table 4b93ea16-1fd4-4f07-a74e-b173fbabfcb1: This server is Raft leader for term 1. Latest log index is 0.
+2017-04-30T18:55:18.911810797 212.587916s info: Table efd11f6a-5a65-4b23-964a-68d52fa77da1: This server is Raft leader for term 1. Latest log index is 0.
+2017-04-30T18:55:18.911834681 212.587939s info: Table 4745ea1f-c111-4c6b-8bbf-571d2918e57f: This server is Raft leader for term 1. Latest log index is 0.
+2017-04-30T18:55:18.911843177 212.587948s info: Table 8399a2c2-f560-4e74-a903-5f0eef536f23: This server is Raft leader for term 1. Latest log index is 0.
+2017-04-30T18:55:18.911854000 212.587959s info: Table 23197203-51ab-4f7a-a2ad-00f29e96eee6: This server is Raft leader for term 1. Latest log index is 0.
+2017-04-30T20:07:01.704465079 4526.266628s info: Table b57bf64e-0d08-4d7e-81cd-81f54a68073b: Configuration is changing.

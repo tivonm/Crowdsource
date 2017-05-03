@@ -16,10 +16,9 @@
 <header>
 <% include ./Partials/header %>
 </header>
-<center><h1>My Profile</h1></center>
   <div class = "container">
     <h3>Projects</h3>
-    <% if(locals.obj != null ) { %>
+    <% if(locals.obj.projects != null ) { %>
       <table class="table table-bordered">
 
       <tr>
@@ -32,7 +31,7 @@
       
           <% for(var i = 0; i < obj.projects.length; i++) { %>
           <tr>
-          <td><%= obj.projects[i].name  %> </td>
+          <td><a href="/project/view/<%= obj.projects[i].id %>"><%= obj.projects[i].name %></a></td>
           <td><%= obj.projects[i].description %></td>
           <td><%= obj.projects[i].createdDate %></td>
           <td><%= obj.projects[i].tags %></td>  
@@ -59,7 +58,7 @@
       
           <% for(var i = 0; i < obj.watchedProjects.length; i++) { %>
             <tr>
-            <td><%= obj.watchedProjects[i].name %></td>
+            <td><a href="/project/view/<%= obj.watchedProjects[i].id %>"><%= obj.watchedProjects[i].name %></a></td>
             <td><%= obj.watchedProjects[i].description %></td>
             <td><%= obj.watchedProjects[i].createdDate %></td>
             <td><%= obj.watchedProjects[i].tags %></td>
@@ -82,15 +81,13 @@
       <th>Project Description</th>
       <th>File Name</th>
       <th>Date Created</th>
-      <th>Rating</th>
       </tr>
     <% for(var i = 0; i < obj.submittedProjects.length; i++) { %>
       <tr>
       <td><%= obj.submittedProjects[i].name %></td>
       <td><%= obj.submittedProjects[i].description %></td>
-      <td><%= obj.submittedProjects[i].fileName %></td>
+      <td><a href="/public/files/submissionFiles/<%= obj.submittedProjects[i].fileUrl %>" download><%= obj.submittedProjects[i].fileUrl %></a></td>
       <td><%= obj.submittedProjects[i].createdDate %></td>
-      <td><%= obj.submittedProjects[i].rating %></td>
       </tr>
       <% } %>
       </table>

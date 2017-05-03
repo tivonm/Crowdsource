@@ -23,6 +23,9 @@ var r = thinky.r;
 
 /* GET home page. */
 router.get('/', function(req, res) {
+    if(!req.session.user.id){
+        res.render('login', { title: 'Login'});
+    }
     getUser(req.session.user.id).then(function(user){
         Promise.all([
             getUserProjects(req.session.user.id),
@@ -35,14 +38,14 @@ router.get('/', function(req, res) {
         res.render('index', {title: 'Home', obj: user});
         }).catch(err => {
             res.render('error', {
-                message: 'Sorry, project not found.',
+                message: 'Sorry, user and projects not found.',
                 error: err
             });
         });
     },function(err){
         //console.log(err);
         res.render('error', {
-            message: 'Sorry, project not found.',
+            message: 'Sorry, user not found.',
             error: err
         });
     });
@@ -67,7 +70,6 @@ function getUserProjects(id){
         CRUD.Project.filter({userId: id}).run().then(function(result) {
             //console.log("projects (below): \n" + JSON.stringify(result));
             if(result[0] == null){
-                console.log("no projects");
                 resolve("");
             } else {
                 //console.log('got projects!');

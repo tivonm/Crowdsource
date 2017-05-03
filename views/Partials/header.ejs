@@ -5,7 +5,6 @@
     <li><a href="/">Home</a></li>
     <li><a href="/project/new">Create Project</a></li>
     <li><a href="/project/view">View Projects</a></li>
-    <li><a href="#">My Account</a></li>
     <li><a href="/log/out">Log out</a></li>
   </ul>
   </div>
@@ -13,7 +12,9 @@
 <br>
 <div class="msg">
 	 <% if(locals.msg != null ) { %>
-	 	<label style="margin-left: 1cm; color: red">Error: <%= msg %></label>
+    <div class="text-center"> 
+	 	<label style="color: red;"><%= msg %></label>
+    </div>
 	 <% } %>
 </div>
 

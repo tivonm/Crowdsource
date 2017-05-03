@@ -202,6 +202,34 @@ deleteProjects = function(){
     });
 }
 
+deleteSubmissions = function(){
+    module.exports.Submission.delete().execute().then(function(total) {
+        console.log("submissions deleted");
+    });
+}
+
+deleteTags = function(){
+    module.exports.Tag.delete().execute().then(function(total) {
+        console.log("tags deleted");
+    });
+}
+
+deleteRatings = function(){
+/*
+module.exports.Rating.delete().execute().then(function(total) {
+        console.log("tags deleted");
+    });
+
+*/
+}
+
+wipeDatabase = function(){
+	deleteProjects();
+	deleteSubmissions();
+	deleteTags();
+	deleteUsers();
+	deleteRatings();
+}
 
 
 var user = new module.exports.User({
@@ -359,13 +387,37 @@ var proj2 = new module.exports.Project({
 });
 
 
+function getUserWithProject(id){
+
+    module.exports.User.filter(function(user) {
+	return user("yourProjectIds").contains(id)
+    }).run().then(function(result) {
+        console.log(JSON.stringify(result) + "\nAbove user was retrieved.\n");
+        //resolve(result);
+    }).catch(Errors.DocumentNotFound , function(err) {
+        console.log("Document not found.");
+        return reject(err);
+    }).error(function(err) {
+        return reject(err);
+    });
+    
+}
+//getAllUsers();
+//getUserWithProject("f01e215f-9cf5-4fc2-8ea5-77db43d0dc0f");
+
+
+
 //getUsersProjects(user.id);
 //console.log(JSON.stringify(getUserRelevantProjects()));
 //getAllProjects();
 //getAllUsers();
 
-deleteUsers();
-deleteProjects();
+//deleteUsers();
+//deleteProjects();
+//deleteTags();
+//deleteSubmissions();
+//deleteRatings();
+wipeDatabase();
 
 //getUser(user.id);
 //getUser(user2.id);

@@ -6,11 +6,13 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var app = express();
 var session =  require('client-sessions');
+var fileUpload = require('express-fileupload');
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 //tell node which parsers to use.
 app.use(favicon());
+app.use(fileUpload());
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
@@ -28,6 +30,7 @@ var index = require('./routes/index');
 var project = require('./routes/projectController');
 var user = require('./routes/userController');
 var login = require('./routes/login');
+var api = require('./routes/api');
 app.use('/log', login);
 
 // a middleware function that checks if the user is logged in every time a new page is called
@@ -44,6 +47,7 @@ app.use(function (req, res, next) {
 app.use('/', index);
 app.use('/project', project);
 app.use('/user', user);
+app.use('/api', api);
 
 // call error
 app.use(function(req, res, next) {

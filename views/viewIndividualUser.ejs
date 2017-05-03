@@ -4,11 +4,93 @@
   
     <% include ./Partials/head %>
   </head>
-  <body>
+  <body ng-controller="user">
+  <style>
+    header{
+      background-color: lightblue;
+      height: 80px;
+	}
+
+	li{
+		display: inline;
+	}
+ </style>
   <header>
   <% include ./Partials/header %>
   </header>
   <body>
+  	<div class="row">
+  	<div class="col-md-8 col-md-offset-3">
+
+  	<div class = "page-header">
+  	<h2 class="text-center">Viewing User: <%= obj.username %> Profile </h2>
+  	</div>
+
+  	<div>
+  	<h3> Top Tags</h3>
+  	<% if(locals.obj.projects != null) { %>
+      <% if (locals.obj.submissions != null) { %>
+  		<table class="table table-bordered"> 
+      <tr>
+      <th>Tag</th>
+      <th>Rating</th>
+  		<% for(var i = 0; i < obj.projects.length; i++) { %>
+  		<tr>
+  		<td><%= obj.projects[i].tags %></td>
+  		</tr>
+  		<% } %>
+      <% } %>
+  		</table>
+  	<% } else { %>
+  	<label>No top tags for this user </label>
+  	<% } %>
+  	</div>
+
+  	<div>
+  	<h3>Submissions</h3>
+  	<% if(locals.obj.submissions != null) { %>
+  		<% for(var i = 0; i < obj.submissions.length; i++) { %>
+  		<table class="table-striped">
+      <tr>
+      <th>Submission file </th>
+      <th>Submission Date</th>
+      </tr>
+  		<tr>
+  		<td><a href="./public/files/submissionFiles/<%= obj.submissions[i].fileUrl %>" download><%= obj.submissions[i].fileUrl %></a></td>
+      <td><%= obj.submissions[i].submissionDate %></td>
+  		</tr>
+  		<% } %>
+  		</table>
+  	<% } else { %>
+  		<label>No submissions for this user</label>
+  	<% } %>
+  	</div>
+
+  	<div>
+  	<h3> Project Requests </h3>
+  		<% if(locals.obj.projects != null) { %>
+  			<% for(var i = 0; i < obj.projects.length; i++) { %>
+  				<table class = "table table-striped">
+          <tr>
+          <th>Project Name</th>
+          <th>Project Description</th>
+          <th>Tags</th>
+          <th>Date Created</th>
+          </tr>
+  				<tr>
+  				<td><a href="/project/view/<%= obj.id[i] %>"><%= obj.projects[i].name %></a></td>
+  				<td><%= obj.projects[i].description %></td>
+  				<td><%= obj.projects[i].tags %></td>
+  				<td><%= obj.projects[i].createdDate %></td>
+  				</tr>
+  			<% } %>
+  			</table>
+  		<% } else { %>
+  			<label>No requested projects </label> 
+  		<% } %>
+  	</div>
+  	</div>
+  	</div>
+  	</body>
+  	</body>
   	
-  
-  </body>

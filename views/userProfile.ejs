@@ -16,16 +16,18 @@
 </header>
 
 <div class="row">
-<div class="col-md-4"> <%= obj.user.profilePic %> </div>
+<!--<div class="col-md-4"> <%= obj.user.profilePic %> </div>-->
 <div class="col-md-4 col-md-offset-3"><h2> <%= obj.user.username%></h2> </div>
 </div>
 
-<h3 Top Tags </h3>
+<h3> Top Tags </h3>
 <div class="row">
 <div class="col-md-3 col-md-ffset-3">
+
 <% for(var i = 0; i < obj.projects.length; i++) { %>
 	<%= obj.projects[i].tags %>
 <% } %>
+
 </div>
 
 <h3 Submissions </h3>

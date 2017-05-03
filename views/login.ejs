@@ -14,10 +14,12 @@
     	background-color: lightblue;
 		height: 80px;
 
+
     }
     #loginForm{
     	width: 200px;
     	margin-left: 17cm;
+      position: relative;top:60px;
     }
     </style>
     
@@ -25,7 +27,7 @@
 
   <% include ./Partials/header %>
   </header>
-  	<h1 class="text-center">Login</h1>
+  	<h1 style="position:relative;top:30px;" class="text-center">Login</h1>
   	<form class="form-horizontal" name="submit" action="/log/in" method = "POST">
       <div id="loginForm" class="form-group">
         <input  type="text" class="form-control" id="username" name="username" id="username" placeholder="Username"/><br>

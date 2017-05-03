@@ -35,7 +35,6 @@ router.post('/in', function(req, res) {
             console.log("user retrieved")
             res.redirect('/');
         } else {
-        	console.log('well fuck me then');
             res.render('login', { title: "Login" , msg: 'Invalid password.'});
         }
     }).catch(Errors.DocumentNotFound , function(err) {
@@ -78,7 +77,7 @@ router.post('/new', function(req, res) {
 	var password = req.body.password;
 	var profilePic;
 	var email = req.body.email;
-	console.log("create user:\nusername: " + username + "\npassword: " + password + "\nemail: " + email);
+	console.log("create user:\n\tusername: " + username + "\n\tpassword: " + password + "\nemail: " + email);
 	if(req.body.profilePic > 0){
 		fs.readFile(req.body.profilePic.path, function (err, data){
 		    var dirname = path.resolve(".")+'/public/files/userImages/';
@@ -94,16 +93,14 @@ router.post('/new', function(req, res) {
 	}else{
         profilePic = 'generic.jpg';
 	}
-    console.log("Made it to before CRUD command");
+
     CRUD.User.filter({
     	username: username
 	/*(function(row) {
 	 console.log("Made it to filter");
         return row('username').eq(username).or(row("email").eq(email))*/
     }).run().then(function(result) {
-        console.log("Made it to inside");
     	if(result[0] == null){
-            console.log("Made it in if result[0]=null");
             var user = new CRUD.User({
                 username: username,
                 email: email,
@@ -111,7 +108,6 @@ router.post('/new', function(req, res) {
                 lastLogin: Date(),
                 profilePic: profilePic
             });
-            console.log("Made it to before save");
             user.save().then(function (doc) {
                 console.log("User with ID: " + doc.id + " was saved.\n");
                 req.session.user = {username: username, profilePic: profilePic, id: doc.id};
@@ -123,7 +119,6 @@ router.post('/new', function(req, res) {
                 // undecided about this as of now
             });
         } else {
-            console.log("Made it to else");
             res.render('createUser', {title: 'Create User'});
 		}
     }).catch(Errors.DocumentNotFound , function(err) {
